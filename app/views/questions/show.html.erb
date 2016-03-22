@@ -1,3 +1,13 @@
 <h1>Question Details</h1>
 
+<%= render './answers/form' %>
+
 <%= @question.title %> <%= @question.body %>
+
+<% if !@answers.nil? %>
+  <% @answers.each do |answer| %>
+    <%= answer.body %> <br>
+    <% end %>
+<% else %>
+   No answers yet!
+<% end %>
