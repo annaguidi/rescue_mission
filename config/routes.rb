@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 
   resources :questions do
-    resources :answers, except: [:destroy]
+    resources :answers
   end
 
 

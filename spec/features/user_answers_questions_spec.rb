@@ -10,7 +10,7 @@ feature "sees answers" do
     expect(page).to have_content(question1.body)
 
     fill_in "Answer", with: "This is the answer: #{answer}"
-    click_button "Submit your question"
+    click_button "Submit Answer"
     expect(page).to have_content("#{answer}")
   end
 end
