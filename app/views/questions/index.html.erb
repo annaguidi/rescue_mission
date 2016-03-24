@@ -2,9 +2,15 @@
 <% @questions.each do |question| %>
 <ul>
   <li>
-    <%= link_to question.title, question_path(question) %>
+    <%= link_to markdown(question.title), question_path(question) %>
   </li>
 </ul>
 <% end %>
 
 <%= link_to 'New Question', new_question_path %>
+<br>
+<% if session[:user_id] == nil %>
+  <%= link_to 'Sign in!', login_path %><br>
+<% else %>
+  <%= link_to 'Logout!', logout_path %>
+<% end %>

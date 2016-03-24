@@ -20,39 +20,55 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
-    if @question.update(question_params)
-      flash[:notice] = "Successfully edited a question!"
-      redirect_to question_path(@question)
+    if current_user == @question.user
+      @question = Question.find(params[:id])
+      if @question.update(question_params)
+        flash[:notice] = "Successfully edited a question!"
+        redirect_to question_path(@question)
+      else
+        flash[:alert] = "This entry is not valid"
+        render :edit
+      end
     else
-      flash[:alert] = "This entry is not valid"
-      render :edit
+      flash[:notice] = "You are not allowed to edit this question"
+      redirect_to question_path(@question)
     end
   end
 
   def create
-    @question = Question.new(question_params)
-    if @question.save
-      flash[:notice] = "Successfully posted a Question!"
-      redirect_to questions_path
+    if @current_user
+      @question = Question.new(question_params)
+      @question.user = @current_user
+      if @question.save
+        flash[:notice] = "Successfully posted a Question!"
+        redirect_to question_path(@question)
+      else
+        flash[:alert] = "Did not post question"
+        render :new
+      end
     else
-      flash[:alert] = "Did not post question, make sure to post a title"
-      render :new
+      flash[:notice] = "You need to be signed in to submit a question"
     end
   end
 
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
-    flash[:notice] = "Successfully deleted a Question!"
-    redirect_to questions_path
+    if current_user == @question.user
+      @question.destroy
+      flash[:notice] = "Successfully deleted a Question!"
+      redirect_to questions_path
+    else
+      flash[:notice] = "You are not allowed to delete this question"
+      redirect_to questions_path
+    end
   end
 
-private
+  private
   def question_params
-  params.require(:question).permit(
-    :title,
-    :body
-  )
+    params.require(:question).permit(
+      :title,
+      :body,
+    )
   end
 
 end

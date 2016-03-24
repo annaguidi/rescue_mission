@@ -2,6 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @question %>
-<%= link_to 'Back', questions_path %>
+<%= link_to 'Back to question', @question %>
+<%= link_to 'Back to all questions', questions_path %>
 <%= button_to 'Delete', @question, method: :delete, data: { confirm: 'Are you sure?'} %>
+ <br> <%= link_to 'Logout!', logout_path %>

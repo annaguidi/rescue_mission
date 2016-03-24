@@ -27,14 +27,14 @@ gem 'capybara', '~> 2.4.0'
 gem 'faker'
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'redcarpet'
 
   gem 'foundation-rails'
 group :development, :test do

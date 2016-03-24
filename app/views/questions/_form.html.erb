@@ -1,4 +1,17 @@
 <%= form_for @question do |f| %>
+  <% if @question.errors.any? %>
+    <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+    <ul>
+      <% @question.errors.full_messages.each do |message| %>
+        <li>
+          <%= message %>
+        </li>
+        <% end %>
+    </ul>
+  <% end %>
+
+
    <div class="field">
     <%= f.label :title %><br  />
     <%= f.text_field :title %>
@@ -8,6 +21,7 @@
     <%= f.label :body, "Details" %><br />
     <%= f.text_field :body %>
   </div>
+
 
   <div class="actions">
     <%= f.submit "Submit your question" %>

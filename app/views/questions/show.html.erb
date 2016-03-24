@@ -1,21 +1,34 @@
 <h1>Question Details</h1>
 
-<%= render './answers/form' %>
+Question Title
+<h3> <%= markdown(@question.title) %> </h3><br />
 
-<%= @question.title %> <br /> <%= @question.body %> <br>
+<br>
+Question Description
+<%= markdown(@question.body) %> <br>
+
+
+<h2>Answers:</h2>
+
+<%= render './answers/form' %>
 
 <ul>
   <% if !@answers.nil? %>
-    <% @answers.each do |answer| %>
-  <li>
-    <%= answer.body %> <br>
-  </li>
-  <% end %>
+
+     <% @answers.each do |answer| %>
+
+      <li><%= answer.body %><%= button_to "Set As Best Answer", question_answer_path(@question, answer), method: :patch %>
+      <% if answer.best_answer == true %>
+      <p>This is the best answer</p>
+      <% end %>
+      </li>
+     <% end %>
 </ul>
-<% else %>
-   No answers yet!
+  <% else %>
+    No answers yet!
 <% end %>
 
 <%= link_to 'Edit', edit_question_path(@question) %>
 <%= link_to 'Back', questions_path %>
 <%= button_to 'Delete', @question, method: :delete, data: { confirm: 'Are you sure?'} %>
+<br> <%= link_to 'Logout!', logout_path %>
